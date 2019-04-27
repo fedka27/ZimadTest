@@ -8,19 +8,39 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled false
     }
+    
     buildTypes {
         release {
             minifyEnabled false
+            multiDexEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /*Support*/
     implementation support(':appcompat-v7')
+    implementation support(':recyclerview-v7')
     implementation support('.constraint:constraint-layout', '1.1.3')
+
+    /*Okhttp*/
+    implementation okhttp(':okhttp')
+    implementation okhttp(':logging-interceptor')
+    /*Retrofit*/
+    implementation(retrofit(':retrofit')) { exclude module: 'okhttp' }
+    implementation retrofit(':converter-gson')
+
+    /*Test*/
     testImplementation 'junit:junit:4.12'
 }
