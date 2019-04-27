@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ZimadTest</string>
+    <string name="tabs_tab_cats">Cats</string>
+    <string name="tabs_tab_dogs">Dogs</string>
 </resources>
