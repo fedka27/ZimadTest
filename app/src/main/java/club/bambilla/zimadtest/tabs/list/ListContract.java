@@ -1,4 +1,4 @@
-package club.bambilla.zimadtest.list;
+package club.bambilla.zimadtest.tabs.list;
 
 import club.bambilla.zimadtest.base.BaseContract;
 

@@ -4,20 +4,17 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import club.bambilla.zimadtest.R;
 import club.bambilla.zimadtest.base.BaseFragment;
-import club.bambilla.zimadtest.base.BaseMvpFragmentAbs;
-import club.bambilla.zimadtest.list.ListFragment;
-import club.bambilla.zimadtest.list.ListType;
+import club.bambilla.zimadtest.tabs.list.ListFragment;
+import club.bambilla.zimadtest.tabs.list.ListType;
 
 public class TabsFragment extends BaseFragment {
     private static final String TAG = TabsFragment.class.getSimpleName();

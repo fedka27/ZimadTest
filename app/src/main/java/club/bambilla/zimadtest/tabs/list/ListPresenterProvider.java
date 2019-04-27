@@ -1,6 +1,5 @@
-package club.bambilla.zimadtest.list;
+package club.bambilla.zimadtest.tabs.list;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 public class ListPresenterProvider {

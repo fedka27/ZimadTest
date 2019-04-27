@@ -1,9 +1,8 @@
-package club.bambilla.zimadtest.list;
+package club.bambilla.zimadtest.tabs.list;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class ListFragment
     }
 
     @Override
-    protected club.bambilla.zimadtest.list.ListContract.Presenter getPresenter() {
+    protected club.bambilla.zimadtest.tabs.list.ListContract.Presenter getPresenter() {
         if (getArguments() == null) {
             throw new IllegalArgumentException("The arguments is null. Create fragment from 'newInstance'");
         }

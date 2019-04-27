@@ -1,4 +1,4 @@
-package club.bambilla.zimadtest.list;
+package club.bambilla.zimadtest.tabs.list;
 
 import android.util.Log;
 
