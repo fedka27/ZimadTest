@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import club.bambilla.zimadtest.R;
 import club.bambilla.zimadtest.base.BaseFragment;
 import club.bambilla.zimadtest.tabs.list.ListFragment;
-import club.bambilla.zimadtest.tabs.list.ListType;
+import club.bambilla.zimadtest.business.ListType;
 
 public class TabsFragment extends BaseFragment {
     private static final String TAG = TabsFragment.class.getSimpleName();
@@ -96,7 +96,7 @@ public class TabsFragment extends BaseFragment {
                 //init dogs fragment
                 .add(containerId, dogsListFragment)
                 .detach(dogsListFragment)
-                .commit();
+                .commitNowAllowingStateLoss();
 
     }
 
@@ -114,6 +114,7 @@ public class TabsFragment extends BaseFragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
@@ -125,8 +126,8 @@ public class TabsFragment extends BaseFragment {
         TabLayout.Tab tabDogs = tabLayout.newTab();
         tabDogs.setText(R.string.tabs_tab_dogs);
 
-        tabLayout.addTab(tabCats, TAB_POSITION_CATS);
-        tabLayout.addTab(tabDogs, TAB_POSITION_DOGS);
+        tabLayout.addTab(tabCats, TAB_POSITION_CATS, false);
+        tabLayout.addTab(tabDogs, TAB_POSITION_DOGS, false);
 
     }
 

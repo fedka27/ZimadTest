@@ -1,4 +1,4 @@
-package club.bambilla.zimadtest.tabs.list;
+package club.bambilla.zimadtest.business;
 
 public enum ListType {
     CATS,
