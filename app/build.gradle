@@ -4,14 +4,14 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "club.bambilla.zimadtest"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
         multiDexEnabled false
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
@@ -32,6 +32,7 @@ dependencies {
     /*Support*/
     implementation support(':appcompat-v7')
     implementation support(':recyclerview-v7')
+    implementation support(':design')
     implementation support('.constraint:constraint-layout', '1.1.3')
 
     /*Okhttp*/
