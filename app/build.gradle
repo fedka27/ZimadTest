@@ -38,9 +38,13 @@ dependencies {
     /*Okhttp*/
     implementation okhttp(':okhttp')
     implementation okhttp(':logging-interceptor')
+
     /*Retrofit*/
     implementation(retrofit(':retrofit')) { exclude module: 'okhttp' }
     implementation retrofit(':converter-gson')
+
+    /*Picasso - image loader*/
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     /*Test*/
     testImplementation 'junit:junit:4.12'
