@@ -7,20 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="actionBarItemBackground">@color/colorPrimary</item>
         <item name="android:textAppearance">@style/AppText</item>
     </style>
 
     <style name="AppText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorInverse</item>
         <item name="android:textSize">@dimen/font_medium</item>
     </style>
 
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabGravity">fill</item>
         <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabIndicatorColor">?android:textColorPrimaryInverse</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimaryInverse</item>
         <item name="tabTextAppearance">@style/AppText</item>
     </style>
 
+    <color name="textColorInverse">#FFFFFF</color>
 </resources>
