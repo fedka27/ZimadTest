@@ -96,7 +96,7 @@ public class TabsFragment extends BaseFragment {
                 //init dogs fragment
                 .add(containerId, dogsListFragment)
                 .detach(dogsListFragment)
-                .commitNowAllowingStateLoss();
+                .commit();
 
     }
 
@@ -160,7 +160,7 @@ public class TabsFragment extends BaseFragment {
 
         transaction.attach(newFragment);
 
-        transaction.commitNowAllowingStateLoss();
+        transaction.commit();
     }
 
     @Override
