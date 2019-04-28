@@ -90,7 +90,6 @@ public class TabsFragment extends BaseFragment {
         catsListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_TAG_CATS);
         dogsListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_TAG_DOGS);
 
-
         @IdRes int containerId = R.id.container_content;
         if (catsListFragment == null) {
             catsListFragment = ListFragment.getInstance(ListType.CATS);
@@ -183,5 +182,31 @@ public class TabsFragment extends BaseFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_BUNDLE_SELECTED_POSITION, tabLayout.getSelectedTabPosition());
+    }
+
+    @Override
+    public boolean handleOnBack() {
+        @Nullable BaseFragment currentFragment = (BaseFragment) getChildFragmentManager()
+                .findFragmentById(R.id.container_content);
+
+        if (currentFragment != null) {
+            if (currentFragment.handleOnBack()) {
+                return true;
+            }
+            return handlePopBackStack();
+        } else {
+            return handlePopBackStack();
+        }
+    }
+
+    private boolean handlePopBackStack() {
+        if (getChildFragmentManager().getBackStackEntryCount() > 0) {
+
+            getChildFragmentManager().popBackStack();
+            return true;
+
+        } else {
+            return super.handleOnBack();
+        }
     }
 }

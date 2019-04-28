@@ -73,6 +73,12 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ListIt
 
             titleTextView.setText(listItem.getTitle());
             positionTextView.setText(String.valueOf(position));
+
+            itemView.setOnClickListener(v -> {
+                if (listItemClickListener != null) {
+                    listItemClickListener.onItemClick(listItem, position);
+                }
+            });
         }
     }
 }

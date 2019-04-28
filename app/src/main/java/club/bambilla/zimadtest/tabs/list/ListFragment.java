@@ -22,6 +22,7 @@ import club.bambilla.zimadtest.business.ListInteractor;
 import club.bambilla.zimadtest.business.ListInteractorProvider;
 import club.bambilla.zimadtest.business.ListType;
 import club.bambilla.zimadtest.models.ListItem;
+import club.bambilla.zimadtest.tabs.details.DetailsFragment;
 import club.bambilla.zimadtest.tabs.list.adapter.ListItemAdapter;
 
 public class ListFragment
@@ -90,7 +91,8 @@ public class ListFragment
 
     private void initListeners() {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
-        listItemAdapter.setListItemClickListener(listItem -> presenter.onItemClick(listItem));
+        listItemAdapter.setListItemClickListener((listItem, position) ->
+                presenter.onItemClick(listItem, position));
     }
 
     @Override
@@ -121,5 +123,14 @@ public class ListFragment
     @Override
     public void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openDetailsScreen(ListItem listItem, int position) {
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(getId(), DetailsFragment.newInstance(listItem, position))
+                .addToBackStack(null)
+                .commit();
     }
 }

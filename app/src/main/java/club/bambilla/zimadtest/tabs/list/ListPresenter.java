@@ -93,7 +93,8 @@ public class ListPresenter
     }
 
     @Override
-    public void onItemClick(ListItem listItem) {
+    public void onItemClick(ListItem listItem, int position) {
+        view.openDetailsScreen(listItem, position);
         //todo open details screen
     }
 

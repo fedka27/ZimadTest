@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import club.bambilla.zimadtest.base.BaseFragment;
 import club.bambilla.zimadtest.tabs.TabsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,5 +34,28 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction
                 .disallowAddToBackStack()
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        @Nullable BaseFragment currentFragment = (BaseFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.container_content);
+
+        if (currentFragment != null) {
+            if (!currentFragment.handleOnBack()) {
+                handlePopBackStack();
+            }
+        } else {
+            handlePopBackStack();
+        }
+
+    }
+
+    private void handlePopBackStack() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

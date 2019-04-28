@@ -19,13 +19,14 @@ public interface ListContract {
 
         void showListError();
 
+        void openDetailsScreen(ListItem listItem, int position);
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
 
         void refresh();
 
-        void onItemClick(ListItem listItem);
+        void onItemClick(ListItem listItem, int position);
 
     }
 }
