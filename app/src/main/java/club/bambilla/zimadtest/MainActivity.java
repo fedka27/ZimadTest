@@ -32,6 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction
                 .disallowAddToBackStack()
-                .commitNowAllowingStateLoss();
+                .commit();
     }
 }
