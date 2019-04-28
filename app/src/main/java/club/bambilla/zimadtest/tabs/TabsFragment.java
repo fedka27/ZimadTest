@@ -20,13 +20,16 @@ public class TabsFragment extends BaseFragment {
     private static final String TAG = TabsFragment.class.getSimpleName();
     private static final String KEY_BUNDLE_SELECTED_POSITION = TAG + "_BUNDLE_SELECTED_POSITION";
 
+    private static final String FRAGMENT_TAG_CATS = TAG + "_CATS";
+    private static final String FRAGMENT_TAG_DOGS = TAG + "_DOGS";
+
     private static final int TAB_POSITION_CATS = 0;
     private static final int TAB_POSITION_DOGS = 1;
 
     private TabLayout tabLayout;
 
-    private ListFragment catsListFragment;
-    private ListFragment dogsListFragment;
+    private Fragment catsListFragment;
+    private Fragment dogsListFragment;
 
     public static TabsFragment newInstance() {
 
@@ -83,20 +86,33 @@ public class TabsFragment extends BaseFragment {
     }
 
     private void initFragments() {
-        catsListFragment = ListFragment.getInstance(ListType.CATS);
-        dogsListFragment = ListFragment.getInstance(ListType.DOGS);
+
+        catsListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_TAG_CATS);
+        dogsListFragment = getChildFragmentManager().findFragmentByTag(FRAGMENT_TAG_DOGS);
+
 
         @IdRes int containerId = R.id.container_content;
+        if (catsListFragment == null) {
+            catsListFragment = ListFragment.getInstance(ListType.CATS);
 
-        getChildFragmentManager()
-                .beginTransaction()
-                //init cats fragment
-                .add(containerId, catsListFragment)
-                .detach(catsListFragment)
-                //init dogs fragment
-                .add(containerId, dogsListFragment)
-                .detach(dogsListFragment)
-                .commit();
+            //init cats fragment
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .add(containerId, catsListFragment, FRAGMENT_TAG_CATS)
+                    .detach(catsListFragment)
+                    .commit();
+        }
+
+        if (dogsListFragment == null) {
+            dogsListFragment = ListFragment.getInstance(ListType.DOGS);
+
+            //init dogs fragment
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .add(containerId, dogsListFragment, FRAGMENT_TAG_DOGS)
+                    .detach(dogsListFragment)
+                    .commit();
+        }
 
     }
 
@@ -148,7 +164,7 @@ public class TabsFragment extends BaseFragment {
     }
 
 
-    private void changeContent(ListFragment newFragment) {
+    private void changeContent(Fragment newFragment) {
         @Nullable Fragment currentFragment =
                 getChildFragmentManager().findFragmentById(R.id.container_content);
 

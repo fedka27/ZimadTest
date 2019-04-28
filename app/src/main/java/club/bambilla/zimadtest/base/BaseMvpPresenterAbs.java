@@ -1,6 +1,10 @@
 package club.bambilla.zimadtest.base;
 
-public class BaseMvpPresenterAbs<V extends BaseContract.View>
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
+public abstract class BaseMvpPresenterAbs<V extends BaseContract.View>
         implements BaseContract.Presenter<V> {
     protected V view;
 
@@ -10,7 +14,7 @@ public class BaseMvpPresenterAbs<V extends BaseContract.View>
     }
 
     @Override
-    public void onCreate() {
+    public void onCreate(@Nullable Bundle savedInstance) {
 
     }
 
@@ -26,6 +30,11 @@ public class BaseMvpPresenterAbs<V extends BaseContract.View>
 
     @Override
     public void onDestroy() {
+
+    }
+
+    @Override
+    public void onSaveInstance(@NonNull Bundle outState) {
 
     }
 }

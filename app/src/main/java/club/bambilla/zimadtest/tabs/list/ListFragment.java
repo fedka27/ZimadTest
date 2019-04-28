@@ -3,6 +3,10 @@ package club.bambilla.zimadtest.tabs.list;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +18,11 @@ import java.util.List;
 
 import club.bambilla.zimadtest.R;
 import club.bambilla.zimadtest.base.BaseMvpFragmentAbs;
+import club.bambilla.zimadtest.business.ListInteractor;
+import club.bambilla.zimadtest.business.ListInteractorProvider;
 import club.bambilla.zimadtest.business.ListType;
 import club.bambilla.zimadtest.models.ListItem;
+import club.bambilla.zimadtest.tabs.list.adapter.ListItemAdapter;
 
 public class ListFragment
         extends BaseMvpFragmentAbs<ListContract.View, ListContract.Presenter>
@@ -24,7 +31,12 @@ public class ListFragment
     private static final String TAG = ListFragment.class.getSimpleName();
     private static final String KEY_EXTRA_LIST_TYPE = TAG + "_EXTRA_LIST_TYPE";
 
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView recyclerView;
+    private View errorListLoad;
     private ProgressBar progressBar;
+
+    private ListItemAdapter listItemAdapter;
 
     public static ListFragment getInstance(@NonNull ListType listType) {
         Bundle arguments = new Bundle();
@@ -43,7 +55,8 @@ public class ListFragment
         }
         ListType listType = (ListType) getArguments().getSerializable(KEY_EXTRA_LIST_TYPE);
 
-        return ListPresenterProvider.providePresenter(listType);
+        ListInteractor listInteractor = ListInteractorProvider.provideListInteractor();
+        return new ListPresenter(listType, listInteractor);
     }
 
     @Nullable
@@ -56,15 +69,42 @@ public class ListFragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initIds(view);
+        initRecycler();
+        initListeners();
     }
 
     private void initIds(@NonNull View view) {
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        errorListLoad = view.findViewById(R.id.content_error_load);
         progressBar = view.findViewById(R.id.progress_bar);
     }
 
+    private void initRecycler() {
+        listItemAdapter = new ListItemAdapter();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(listItemAdapter);
+    }
+
+    private void initListeners() {
+        swipeRefreshLayout.setOnRefreshListener(() -> presenter.refresh());
+        listItemAdapter.setListItemClickListener(listItem -> presenter.onItemClick(listItem));
+    }
+
     @Override
-    public void setItems(List<ListItem> listItems) {
-        Log.d(TAG, "setItems: " + listItems.size());
+    public void showContent(List<ListItem> listItems) {
+        listItemAdapter.setListItems(listItems);
+
+        recyclerView.setVisibility(View.VISIBLE);
+        errorListLoad.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showListError() {
+        errorListLoad.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
     }
 
     @Override
@@ -75,10 +115,11 @@ public class ListFragment
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
-    public void showError(String message) {
+    public void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -24,7 +24,7 @@ public abstract class BaseMvpFragmentAbs<V extends BaseContract.View, P extends 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter.onCreate();
+        presenter.onCreate(savedInstanceState);
     }
 
     @Override
@@ -43,6 +43,12 @@ public abstract class BaseMvpFragmentAbs<V extends BaseContract.View, P extends 
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        presenter.onSaveInstance(outState);
     }
 
     /**
