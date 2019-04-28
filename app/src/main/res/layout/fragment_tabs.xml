@@ -17,6 +17,7 @@
         android:id="@+id/tab_layout"
         style="@style/AppTabLayout"
         android:layout_width="match_parent"
+        android:background="?actionBarItemBackground"
         android:layout_height="?actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
